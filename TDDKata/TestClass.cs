@@ -82,7 +82,15 @@ namespace TDDKata
         }
 
         [Test]
-        public void WhenZeroAndOne_ThenReturnsOne()
+        public void WhenZeroNewlineOne_ThenReturnsOne()
+        {
+            StringCalc calc = new StringCalc();
+            int value = calc.Sum("0\n1");
+            Assert.That(value, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void WhenZeroCommaOne_ThenReturnsOne()
         {
             StringCalc calc = new StringCalc();
             int value = calc.Sum("0,1");
@@ -106,6 +114,14 @@ namespace TDDKata
         }
 
         [Test]
+        public void WhenZeroAndNewline_ThenReturnsMinusOne()
+        {
+            StringCalc calc = new StringCalc();
+            int value = calc.Sum("0\n");
+            Assert.That(value, Is.EqualTo(-1), "Wrong actual value");
+        }
+
+        [Test]
         public void WhenZeroAndPlus_ThenReturnsMinusOne()
         {
             StringCalc calc = new StringCalc();
@@ -122,19 +138,19 @@ namespace TDDKata
         }
 
         [Test]
-        public void WhenZeroAndOneAndTwo_ThenReturnsMinusOne()
+        public void WhenZeroAndOneAndTwo_ThenReturnsThree()
         {
             StringCalc calc = new StringCalc();
-            int value = calc.Sum("0,1,2");
-            Assert.That(value, Is.EqualTo(-1), "Wrong actual value");
+            int value = calc.Sum("0,1\n2");
+            Assert.That(value, Is.EqualTo(3));
         }
 
         [Test]
-        public void WhenZeroAndOneAndTwoAndThree_ThenReturnsMinusOne()
+        public void WhenZeroAndOneAndTwoAndThree_ThenReturnsSix()
         {
             StringCalc calc = new StringCalc();
-            int value = calc.Sum("0,1,2,3");
-            Assert.That(value, Is.EqualTo(-1), "Wrong actual value");
+            int value = calc.Sum("0,1,2\n3");
+            Assert.That(value, Is.EqualTo(6));
         }
 
         [Test]
