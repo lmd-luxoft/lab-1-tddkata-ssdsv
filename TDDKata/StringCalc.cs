@@ -7,28 +7,24 @@ namespace TDDKata
 {
     internal class StringCalc
     {
-        private const char DELIMITER = ',';
+        private static char[] DELIMITERS = { ',', '\n' };
+
         internal int Sum(string v)
         {
             if (string.IsNullOrWhiteSpace(v))
                 return -1;
 
-            string[] args = v.Split(new[] { DELIMITER }, StringSplitOptions.None);
-
-            if (args.Length > 2)
-                return -1;
+            string[] args = v.Split(DELIMITERS, StringSplitOptions.None);
 
             var hasNotDigitChar = args.Any(arg => string.IsNullOrWhiteSpace(arg) || arg.Any(x => !Char.IsDigit(x)));
             if (hasNotDigitChar)
                 return -1;
 
-            int arg1 = Int32.Parse(args[0]);
-            if (args.Length == 1)
-                return arg1;
+            var operands = args.Select(x => Int32.Parse(x));
 
-            int arg2 = Int32.Parse(args[1]);
+            var result = operands.Sum();
 
-            return arg1 + arg2;
+            return result;
         }
     }
 }
